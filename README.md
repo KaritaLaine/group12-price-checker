@@ -22,7 +22,17 @@ Group 12's software architecture course project: a backend for a price checker s
 
     [] - Add location and timestamp to the data
 
-    [] - Securely send and save the data (barcode type, barcode (GTIN number), price of product, loacation (latitudes and longitudes), timestamp, and optional user preferences (how many kilometers the user thinks is still nearby)) to the backend
+    [] - Securely send and save the following data to the backend
+
+        [] - barcode (type and GTIN number)
+
+        [] - price of product
+
+        [] - location (latitudes and longitudes)
+
+        [] - timestamp
+
+        [] - optional user preferences (how many kilometers the user thinks is still nearby)
 
 [] - If the barcode has no product, notify the shopper
 
