@@ -1,2 +1,5 @@
-# group12-price-checker
+# Price checker
 Group 12's software architecture course project: a backend for a price checker software system.
+
+## Checklist
+[] - task
