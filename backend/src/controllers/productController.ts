@@ -3,11 +3,14 @@ import { Request, Response } from "express"
 
 const addProduct = async (req: Request, res: Response) => {
     try {
-        const { name, price, barcode } = req.body
+        const { name, barcode } = req.body
+
+        if (!name || !barcode) {
+            return res.status(400).json({ message: "Name and barcode required" });
+        }
 
         const product = new Product({
             name: name,
-            price: Math.round(Number(price) * 100),
             barcode: barcode
         })
 
