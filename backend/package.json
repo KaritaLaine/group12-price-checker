@@ -8,9 +8,10 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "serve": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.2.1"
   }
 }
