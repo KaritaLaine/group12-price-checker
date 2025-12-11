@@ -1,8 +1,8 @@
-import mongoose , { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 interface IProduct extends Document {
     name: string
-    price: mongoose.Types.Decimal128
+    price: number
     barcode: string
     createdAt: Date
     updatedAt: Date
@@ -14,8 +14,7 @@ const productSchema = new Schema<IProduct>({
         required: true,
     },
     price: {
-        // Could just be type: Number
-        type: Schema.Types.Decimal128
+        type: Number
     },
     // GTIN number stored as a string
     barcode: {
