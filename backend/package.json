@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Group 12's software architecture course project: a backend for a price checker software system.",
   "main": "index.js",
+  "type": "module",
   "directories": {
     "test": "tests"
   },
   "scripts": {
+    "start": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

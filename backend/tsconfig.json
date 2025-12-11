@@ -13,5 +13,6 @@
 
     "types": ["node"],
     "sourceMap": true
-  }
+  },
+  "exclude": ["test", "node_modules"]
 }
