@@ -13,8 +13,7 @@ const authorize = (...allowedRoles: UserRole[]) => {
     // If user has no permission, throw an error
     if (!allowedRoles.includes(req.user.role)) {
       res.status(403).json({
-        error:
-          "You don't have the necessary permissions to perform this action.",
+        error: "You don't have the necessary permissions for this action.",
       })
       return
     }
