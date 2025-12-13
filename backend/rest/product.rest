@@ -6,5 +6,6 @@ Content-Type: application/json
 {
   "name": "test_product",
   "barcodeType": "GTIN-14",
-  "barcode": "12345678901234"
+  "barcode": "12345678901234",
+  "price": 999
 }

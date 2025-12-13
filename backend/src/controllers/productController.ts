@@ -4,7 +4,7 @@ import StorePrice from "../models/storePrice";
 
 const addProduct = async (req: Request, res: Response) => {
     try {
-        const { name, barcodeType, barcode } = req.body
+        const { name, barcodeType, barcode, price } = req.body
 
         if (!name || !barcodeType || !barcode) {
             return res.status(400).json({ message: "Name, barcode type and barcode required" });
@@ -17,6 +17,15 @@ const addProduct = async (req: Request, res: Response) => {
         })
 
         await product.save()
+
+        const storePrice = new StorePrice({
+            productId: product._id,
+            price,
+            isCurrent: true
+        })
+
+        await storePrice.save()
+        
         return res.status(201).json(product);
 
     } catch (error: any) {

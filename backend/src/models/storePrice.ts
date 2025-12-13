@@ -43,10 +43,14 @@ const storePriceSchema = new Schema<IStorePrice>(
         },
         discount: {
             type: Number,
+            min: 1,
+            max: 100,
+            default: 0
         },
         source: {
             type: String,
             enum: ["store_batch", "shopper"],
+            default: "shopper"
         },
     },
     { timestamps: true }
