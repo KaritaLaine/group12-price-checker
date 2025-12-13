@@ -58,6 +58,8 @@ We also wanted tools that are widely used and well-documented to make sure they 
 
 # Design patterns
 
+## MVC design pattern
+
 We chose to follow the MVC (model-view-controller) pattern to complement the layered architecture style. This makes the code more modular, easier to maintain, and easier to test.
 
 - Model layer: contains all database schemas.
@@ -67,6 +69,8 @@ We chose to follow the MVC (model-view-controller) pattern to complement the lay
 - Views: routes in our case. Defines all API endpoints and maps the requests to the appropriate controller methods.
 
 ![MVC folder structure](./images/mvcFolderStructure.png)
+
+## Middleware pattern
 
 For the second design pattern we chose to follow the middleware pattern. Instead of components interacting directly with each other, middleware receives requests, performs checks (such as authentication and authorization), and only forwards them to the controller if allowed. This separates different concerns (SoC), making the code simpler and easier to maintain.
 
@@ -98,7 +102,7 @@ const authorize = (...allowedRoles: UserRole[]) => {
 }
 ```
 
-#### Sources
+### Sources
 
 - https://www.baeldung.com/cs/layered-architecture
 

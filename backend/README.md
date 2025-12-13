@@ -108,7 +108,7 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [] - SOLID principles are applied with examples in code. (2 points)
 
-[1/2] - At least 2 design patterns are applied. Their use is evaluated and documented. (2 points)
+[x] - At least 2 design patterns are applied. Their use is evaluated and documented. (2 points)
 
 [] - Backend is easy to deploy on different platforms (like Linux, Windows, cloud…) => use Docker! (2 points)
 
