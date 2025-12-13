@@ -66,7 +66,35 @@ We chose to follow the MVC (model-view-controller) pattern to complement the lay
 
 - Views: routes in our case. Defines all API endpoints and maps the requests to the appropriate controller methods.
 
-TODO: For the second design pattern , ...
+For the second design pattern we chose to follow the middleware pattern. Instead of components interacting directly with each other, middleware receives requests, performs checks (such as authentication and authorization), and only forwards them to the controller if allowed. This separates different concerns (SoC), making the code simpler and easier to maintain.
+
+Example of our authorize middleware:
+
+```ts
+import type { NextFunction, Request, Response } from "express"
+import type { UserRole } from "../types/user"
+
+// Check if user has the required role to access the route
+const authorize = (...allowedRoles: UserRole[]) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    // If user is not authenticated throw an error
+    if (!req.user) {
+      res.status(401).json({ error: "Please login and try again." })
+      return
+    }
+
+    // If user has no permission, throw an error
+    if (!allowedRoles.includes(req.user.role)) {
+      res.status(403).json({
+        error: "You don't have the necessary permissions for this action.",
+      })
+      return
+    }
+
+    next()
+  }
+}
+```
 
 #### Sources
 
@@ -75,3 +103,5 @@ TODO: For the second design pattern , ...
 - https://medium.com/@branimir.ilic93/express-js-best-practices-modular-vs-layered-approach-for-medium-and-large-appsintroduction-626e61cc908d
 
 - https://www.geeksforgeeks.org/system-design/mvc-design-pattern/
+
+- https://www.patterns.dev/vanilla/mediator-pattern/
