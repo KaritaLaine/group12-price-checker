@@ -34,6 +34,8 @@ The application is going to use the following technologies:
 
 - Jest and Supertest for writing and running automated tests.
 
+- Bcrypt for hashing and salting passwords before saving them to the database.
+
 - JWT for secure authentication and authorization.
 
 A key reason for choosing these technologies was the team’s familiarity with them. We also wanted tools that are widely used and well-documented to make sure they are stable and safe to use in our project. Teachers recommendations were also taken into consideration.
