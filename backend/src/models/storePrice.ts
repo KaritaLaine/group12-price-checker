@@ -9,7 +9,6 @@ interface IStorePrice extends Document {
     currency: string;
     isCurrent: boolean;
     discount?: number;
-    appOnlyDiscount?: number;
     source?: PriceSource;
     createdAt: Date;
     updatedAt: Date;
@@ -44,12 +43,6 @@ const storePriceSchema = new Schema<IStorePrice>(
         },
         discount: {
             type: Number,
-        },
-        // Shopper-only discount; percentage 0-100 applied on top of base price
-        appOnlyDiscount: {
-            type: Number,
-            min: 0,
-            max: 100,
         },
         source: {
             type: String,
