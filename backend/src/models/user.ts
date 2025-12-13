@@ -3,14 +3,14 @@ import type { User } from "../types/user"
 import { authUtils } from "../utils/auth"
 
 const userSchema = new mongoose.Schema<User>({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true },
   role: { type: String, enum: ["admin", "storeUser"], default: "storeUser" },
   status: {
     type: String,
     enum: ["pending", "unlocked", "locked"],
   },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true, lowercase: true },
 })
 
 userSchema.pre<User>("save", async function (this: User) {
