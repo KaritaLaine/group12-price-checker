@@ -1,17 +1,23 @@
-import express from "express";
-import type { Request, Response } from "express";
-import dotenv from "dotenv";
+import "dotenv/config"
+import express from "express"
+import { connectToDatabase } from "./config/database"
+import apiRoutes from "./routes/index"
+import type { Request, Response } from "express"
 
-dotenv.config();
+const PORT = process.env.PORT || 3000
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("API is running");
-});
+if (!process.env.MONGODB_URI) {
+  console.error("MONGODB_URI is not defined in the .env file")
+  process.exit(1)
+}
 
-const PORT = process.env.PORT || 3000;
+connectToDatabase(process.env.MONGODB_URI)
+
+app.use(apiRoutes)
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+  console.log(`Server running on http://localhost:${PORT}`)
+})

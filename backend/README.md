@@ -54,9 +54,9 @@ Group 12's software architecture course project: a backend for a price checker s
 
 ## Store user functionality
 
-[] - Sign up (needs admin approval)
+[x] - Sign up (needs admin approval)
 
-[] - Sign in
+[x] - Sign in
 
 [] - Add new products one by one or multiple at a time
 
@@ -88,17 +88,17 @@ Group 12's software architecture course project: a backend for a price checker s
 
 # Evaluation checklist
 
-[] - Key architectural characteristics are clear, justified, and explained. (2 points)
+[x] - Key architectural characteristics are clear, justified, and explained. (2 points)
 
-[] - Technology, design, and implementation choices are justified and based on functional requirements, architectural characteristics, and resource availability. (2 points)
+[x] - Technology, design, and implementation choices are justified and based on functional requirements, architectural characteristics, and resource availability. (2 points)
 
-[] - Frontend and backend responsibilities are divided logically. No frontends need to be implemented. (2 points)
+[x] - Frontend and backend responsibilities are divided logically. No frontends need to be implemented. (2 points)
 
 [] - Separation of concerns (SoC) is applied. Fast-changing parts should not break slow-changing parts. (2 points)
 
 [] - Code is approachable. It follows established standards and conventions. It documents itself. Abstractions are used in a self-documenting way. Unnecessary documentation is avoided, and part of the documentation is automated. (2 points)
 
-[] - Selected architectural style for the backend is suitable for the task, justified, and well-documented. (2 points)
+[x] - Selected architectural style for the backend is suitable for the task, justified, and well-documented. (2 points)
 
 [] - YAGNI: only necessary functionality is implemented. (2 points)
 
@@ -108,7 +108,7 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [] - SOLID principles are applied with examples in code. (2 points)
 
-[] - At least 2 design patterns are applied. Their use is evaluated and documented. (2 points)
+[x] - At least 2 design patterns are applied. Their use is evaluated and documented. (2 points)
 
 [] - Backend is easy to deploy on different platforms (like Linux, Windows, cloud…) => use Docker! (2 points)
 
@@ -124,11 +124,11 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [] - Secure logging practices are implemented. Sensitive activities are auditable and no secrets are exposed in logs. (2 points)
 
-[] - API is well-defined and follows standard conventions and principles. (2 points)
+[x] - API is well-defined and follows standard conventions and principles. (2 points)
 
-[] - API is versioned to support changes without breaking existing clients. (2 points)
+[x] - API is versioned to support changes without breaking existing clients. (2 points)
 
-[] - Code structure makes it easy to find modules and components. (2 points)
+[x] - Code structure makes it easy to find modules and components. (2 points)
 
 [] - It is relatively easy to change the technologies the application uses (e.g., persistent storage, web framework), and to update major library and package versions. (2 points)
 
@@ -152,6 +152,6 @@ Group 12's software architecture course project: a backend for a price checker s
 
     [] g. Refactoring.
 
-[] - Code is easily available for stakeholders. Permissions are managed to guarantee security and safety. Branching strategies are followed. (2 points)
+[x] - Code is easily available for stakeholders. Permissions are managed to guarantee security and safety. Branching strategies are followed. (2 points)
 
 [] - DevOps practices are implemented in development, testing, and deployment to automate workflows. (2 points)
