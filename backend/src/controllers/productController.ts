@@ -4,14 +4,15 @@ import StorePrice from "../models/storePrice";
 
 const addProduct = async (req: Request, res: Response) => {
     try {
-        const { name, barcode } = req.body
+        const { name, barcodeType, barcode } = req.body
 
-        if (!name || !barcode) {
-            return res.status(400).json({ message: "Name and barcode required" });
+        if (!name || !barcodeType || !barcode) {
+            return res.status(400).json({ message: "Name, barcode type and barcode required" });
         }
 
         const product = new Product({
             name: name,
+            barcodeType: barcodeType,
             barcode: barcode
         })
 
