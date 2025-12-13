@@ -1,9 +1,7 @@
-import dotenv from "dotenv"
+import "dotenv/config"
 import express from "express"
 import { connectToDatabase } from "./config/database"
 import apiRoutes from "./routes/index"
-
-dotenv.config()
 
 const PORT = process.env.PORT || 3000
 
