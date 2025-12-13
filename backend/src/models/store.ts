@@ -15,6 +15,7 @@ const storeSchema = new Schema<IStore>({
         type: String,
         required: true,
     },
+    // Location is stored in GeoJSON format
     location: {
         type: {
             type: String,

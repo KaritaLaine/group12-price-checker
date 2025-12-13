@@ -12,7 +12,7 @@ const productSchema = new Schema<IProduct>({
         type: String,
         required: true,
     },
-    // GTIN number stored as a string
+    // GTIN number
     barcode: {
         type: String,
         required: true,
