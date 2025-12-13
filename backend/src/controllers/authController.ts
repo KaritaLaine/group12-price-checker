@@ -5,7 +5,7 @@ import { authUtils } from "../utils/auth.js"
 // Register a new user
 const registerUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, password, role } = req.body
+    const { username, email, password } = req.body
 
     if (!username || !email || !password) {
       res.status(400).json({
@@ -24,7 +24,6 @@ const registerUser = async (req: Request, res: Response) => {
       username,
       email,
       password,
-      role: role || "storeUser",
     })
 
     await user.save()
