@@ -1,10 +1,13 @@
 import mongoose, { Document, Schema } from "mongoose"
 
+type BarcodeType = "GTIN-8" | "GTIN-12" | "GTIN-13" | "GTIN-14";
+
 interface IProduct extends Document {
-  name: string
-  barcode: string
-  createdAt: Date
-  updatedAt: Date
+    name: string
+    barcodeType: BarcodeType
+    barcode: string
+    createdAt: Date
+    updatedAt: Date
 }
 
 const productSchema = new Schema<IProduct>(
@@ -13,7 +16,11 @@ const productSchema = new Schema<IProduct>(
       type: String,
       required: true,
     },
-    // GTIN number stored as a string
+    barcodeType: {
+        type: String,
+        enum: ["GTIN-8", "GTIN-12", "GTIN-13", "GTIN-14"],
+        required: true },
+    // GTIN number
     barcode: {
       type: String,
       required: true,

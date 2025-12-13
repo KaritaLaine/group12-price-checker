@@ -2,6 +2,9 @@ import "dotenv/config"
 import express from "express"
 import { connectToDatabase } from "./config/database"
 import apiRoutes from "./routes/index"
+import express from "express";
+import type { Request, Response } from "express";
+import dotenv from "dotenv";
 
 const PORT = process.env.PORT || 3000
 
