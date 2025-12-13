@@ -66,6 +66,8 @@ We chose to follow the MVC (model-view-controller) pattern to complement the lay
 
 - Views: routes in our case. Defines all API endpoints and maps the requests to the appropriate controller methods.
 
+![MVC folder structure](./images/mvcFolderStructure.png)
+
 For the second design pattern we chose to follow the middleware pattern. Instead of components interacting directly with each other, middleware receives requests, performs checks (such as authentication and authorization), and only forwards them to the controller if allowed. This separates different concerns (SoC), making the code simpler and easier to maintain.
 
 Example of our authorize middleware:
