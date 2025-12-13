@@ -1,5 +1,4 @@
-
-### ===== REGISTER =====
+### REGISTER
 
 ### Register a new user
 POST http://localhost:3000/v1/auth/register
@@ -9,28 +8,6 @@ Content-Type: application/json
   "username": "KalleKauppias",
   "email": "KalleKauppias@example.com",
   "password": "Koira123!"
-}
-
-### Register a new store user
-POST http://localhost:3000/v1/auth/register
-Content-Type: application/json
-
-{
-  "username": "KimmoKauppias",
-  "email": "KimmoKauppias@example.com",
-  "password": "Kissa123!",
-  "role": "storeUser"
-}
-
-### Register a new admin user
-POST http://localhost:3000/v1/auth/register
-Content-Type: application/json
-
-{
-  "username": "adminabuser",
-  "email": "adminabuser@example.com",
-  "password": "Kissakoira123!",
-  "role": "admin"
 }
 
 ### Register - Missing required fields (should fail)
@@ -51,9 +28,9 @@ Content-Type: application/json
   "password": "TestPassword123!"
 }
 
-### ===== LOGIN =====
+### LOGIN
 
-### Login with valid credentials
+### Login - Store user
 POST http://localhost:3000/v1/auth/login
 Content-Type: application/json
 
@@ -98,7 +75,7 @@ Content-Type: application/json
   "password": "Kissa123!"
 }
 
-### ===== TOKEN REFRESH =====
+### TOKEN REFRESH 
 
 ### Refresh access token
 # First login to get a refresh token, then use it here
