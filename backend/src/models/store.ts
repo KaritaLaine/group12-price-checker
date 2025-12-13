@@ -4,7 +4,7 @@ interface IStore extends Document {
     name: string
     location: {
         type: string
-        coordinates: number[]
+        coordinates: [number, number] // [longitude, latitude]
     }
     createdAt: Date
     updatedAt: Date
@@ -20,7 +20,8 @@ const storeSchema = new Schema<IStore>({
         type: {
             type: String,
             enum: ['Point'],
-            required: true
+            required: true,
+            default: 'Point'
         },
         coordinates: {
             type: [Number],
@@ -30,5 +31,7 @@ const storeSchema = new Schema<IStore>({
 },
     { timestamps: true }
 ) 
+
+storeSchema.index({ location: "2dsphere" });
 
 export default mongoose.model<IStore>("Store", storeSchema)
