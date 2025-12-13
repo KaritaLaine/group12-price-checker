@@ -1,6 +1,20 @@
+# Key architectural characteristics
+
+- Scalability: The customer believes that this sort of application can have a large number of users in the future. The backend must have an application programming interface to serve unknown numbers and types of frontends, which can be anything from mobile apps to websites.
+
+- Maintainability: It is important that the backend system is easy to maintain also in the long run.
+
+- Portability: The backend application should be easy to deploy on diverse types of platforms (like Linux, Windows, cloud…).
+
+- Authentication and authorization: The security of the authentication and authorization mechanisms are evaluated, and only secure ones are used.
+
+- Configurability: The backend application is easy to configure for different installations. User preferences (e.g., How many kilometers the user thinks is still nearby.) should be applied.
+
+- Testability: The customer prefers automatically tested code.
+
 # Architectural style
 
-We chose to use the layered architecture style, because it makes the code easier to understand, maintain, and modify. Since each layer is independent, changes in one layer (for example. database layer) don't necessarily affect the ohers, which allows better scalability. Following layered architecture style also makes testing easier.
+Based on the key architectural characteristics we chose to use the layered architecture style. It makes the code easier to understand, maintain, and modify. Since each layer is independent, changes in one layer (for example. database layer) don't necessarily affect the ohers, which allows better scalability. Following layered architecture style also makes testing easier.
 
 The application is going to be separated into different layers:
 
@@ -38,7 +52,9 @@ The application is going to use the following technologies:
 
 - JWT for secure authentication and authorization.
 
-A key reason for choosing these technologies was the team’s familiarity with them. We also wanted tools that are widely used and well-documented to make sure they are stable and safe to use in our project. Teachers recommendations were also taken into consideration.
+A key reason for choosing these technologies was the team’s familiarity with them. They also meet the functional requirements of the project, such as secure user authentication, automated testing, and portable deployment.
+
+We also wanted tools that are widely used and well-documented to make sure they are stable and safe to use in our project. Teachers recommendations were also taken into consideration.
 
 # Design patterns
 
