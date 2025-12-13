@@ -1,8 +1,7 @@
 import dotenv from "dotenv"
-import type { Request, Response } from "express"
 import express from "express"
 import mongoose from "mongoose"
-import authRoutes from "./routes/v1/auth/auth.routes.js"
+import apiRoutes from "./routes/index"
 
 dotenv.config()
 
@@ -22,11 +21,7 @@ mongoose
     process.exit(1)
   })
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("API is running")
-})
-
-app.use("/api/v1/auth", authRoutes)
+app.use(apiRoutes)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
