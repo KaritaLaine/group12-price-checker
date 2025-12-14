@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 3000
 export const app = express()
 app.use(express.json())
 
+const shouldConnectToDb =
+  process.env.NODE_ENV !== "test" && Boolean(process.env.MONGODB_URI)
+
 if (!process.env.MONGODB_URI) {
   console.error("MONGODB_URI is not defined in the .env file")
   if (process.env.NODE_ENV !== "test") {
@@ -15,7 +18,7 @@ if (!process.env.MONGODB_URI) {
   }
 }
 
-if (process.env.MONGODB_URI) {
+if (shouldConnectToDb && process.env.MONGODB_URI) {
   connectToDatabase(process.env.MONGODB_URI)
 }
 
