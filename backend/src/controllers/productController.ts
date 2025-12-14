@@ -67,7 +67,81 @@ const getProductPriceByBarcode = async (req: Request, res: Response) => {
       });
     }
 
-    return handleResponse(res, 200, "Product fetched successfully", {product, prices, manualPriceEntryRequired: false})
+    const priceEntries = prices.map((priceDoc) => {
+      const effectivePrice = priceDoc.discountedPrice ?? priceDoc.price;
+      return {
+        id: priceDoc._id?.toString(),
+        price: priceDoc.price,
+        discountedPrice: priceDoc.discountedPrice,
+        effectivePrice,
+        store: priceDoc.store,
+      };
+    });
+
+    const effectivePrices = priceEntries.map((entry) => entry.effectivePrice);
+    const averagePrice =
+      effectivePrices.reduce((sum, val) => sum + val, 0) /
+      (effectivePrices.length || 1);
+
+    const getPriceLabel = (value: number) => {
+      if (value <= averagePrice * 0.8) {
+        return { label: "cheap", indicator: "🟢", color: "green" };
+      }
+      if (value >= averagePrice * 1.2) {
+        return { label: "expensive", indicator: "🔴", color: "red" };
+      }
+      return { label: "moderate", indicator: "🟡", color: "yellow" };
+    };
+
+    const currentStoreEntry = priceEntries.find(
+      (entry) => entry.store?._id?.toString() === storeId
+    );
+
+    const nearbyStoreEntries = priceEntries
+      .filter((entry) => entry.store?._id?.toString() !== storeId)
+      .map((entry) => {
+        const label = getPriceLabel(entry.effectivePrice);
+        return {
+          price: entry.price,
+          discountedPrice: entry.discountedPrice,
+          label: label.label,
+          indicator: label.indicator,
+          color: label.color,
+          store: {
+            name: (entry.store as any)?.name,
+            location: (entry.store as any)?.location,
+          },
+        };
+      });
+
+    const formattedCurrentStore = currentStoreEntry
+      ? (() => {
+          const label = getPriceLabel(currentStoreEntry.effectivePrice);
+          return {
+            price: currentStoreEntry.price,
+            discountedPrice: currentStoreEntry.discountedPrice,
+            label: label.label,
+            indicator: label.indicator,
+            color: label.color,
+            store: {
+              name: (currentStoreEntry.store as any)?.name,
+              location: (currentStoreEntry.store as any)?.location,
+            },
+          };
+        })()
+      : null;
+
+    const responsePayload = {
+      product: {
+        name: product.name,
+        barcode: product.barcode,
+      },
+      currentStore: formattedCurrentStore,
+      nearbyStores: nearbyStoreEntries,
+      manualPriceEntryRequired: false,
+    };
+
+    return handleResponse(res, 200, "Product fetched successfully", responsePayload)
   } catch (error) {
     console.error(error)
     return handleResponse(res, 500, "Server error")
