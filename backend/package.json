@@ -12,7 +12,10 @@
     "dev": "nodemon --exec tsx src/index.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
-    "seed": "tsx script/seed.ts"
+    "seed": "tsx script/seed.ts",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage --runInBand"
   },
   "keywords": [],
   "author": "",
