@@ -106,6 +106,7 @@ const login = async (req: Request, res: Response) => {
       userId: user._id.toString(),
       role: user.role,
       email: user.email,
+      status: user.status,
     }
 
     // Generate access and refresh tokens
@@ -154,6 +155,7 @@ const refreshToken = async (req: Request, res: Response) => {
       userId: user._id.toString(),
       role: user.role,
       email: user.email,
+      status: user.status,
     }
     const accessToken = authUtils.generateAccessToken(newTokenPayload)
 
