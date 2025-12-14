@@ -9,16 +9,12 @@ const userSchema = new mongoose.Schema<User>({
   status: {
     type: String,
     enum: ["pending", "unlocked", "locked"],
+    default: "pending",
   },
   email: { type: String, required: true, unique: true, lowercase: true },
 })
 
 userSchema.pre<User>("save", async function (this: User) {
-  // Set default status based on role (admin: unlocked, storeUser: pending)
-  if (this.isNew && !this.status) {
-    this.status = this.role === "admin" ? "unlocked" : "pending"
-  }
-
   // Hash password if it has been edited
   if (!this.isModified("password")) return
 
