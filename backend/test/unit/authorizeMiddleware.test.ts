@@ -36,3 +36,49 @@ describe("AuthorizationMiddleware.authorize", () => {
     expect(next).toHaveBeenCalled()
   })
 })
+
+describe("AuthorizationMiddleware helpers", () => {
+  it("adminOnly blocks non-admin users", () => {
+    const { req, res, next, resBody } = buildReqRes({ role: "storeUser" })
+    AuthorizationMiddleware.adminOnly(req as any, res, next)
+    expect(res.status).toHaveBeenCalledWith(403)
+    expect(next).not.toHaveBeenCalled()
+    expect(resBody.message).toMatch(/permissions/i)
+  })
+
+  it("storeUserOnly allows store users and blocks admins", () => {
+    const storeContext = buildReqRes({ role: "storeUser" })
+    AuthorizationMiddleware.storeUserOnly(
+      storeContext.req as any,
+      storeContext.res,
+      storeContext.next
+    )
+    expect(storeContext.next).toHaveBeenCalled()
+
+    const adminContext = buildReqRes({ role: "admin" })
+    AuthorizationMiddleware.storeUserOnly(
+      adminContext.req as any,
+      adminContext.res,
+      adminContext.next
+    )
+    expect(adminContext.res.status).toHaveBeenCalledWith(403)
+  })
+
+  it("adminAndStoreUser allows both admin and store users", () => {
+    const adminContext = buildReqRes({ role: "admin" })
+    AuthorizationMiddleware.adminAndStoreUser(
+      adminContext.req as any,
+      adminContext.res,
+      adminContext.next
+    )
+    expect(adminContext.next).toHaveBeenCalled()
+
+    const storeContext = buildReqRes({ role: "storeUser" })
+    AuthorizationMiddleware.adminAndStoreUser(
+      storeContext.req as any,
+      storeContext.res,
+      storeContext.next
+    )
+    expect(storeContext.next).toHaveBeenCalled()
+  })
+})
