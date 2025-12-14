@@ -1,25 +1,26 @@
 import type { Request, Response } from "express"
 import Product from "../models/product"
 import StoreProduct from "../models/storeProduct"
+import { handleResponse } from "../utils/response"
 
 const getProductPriceByBarcode = async (req: Request, res: Response) => {
   try {
     const { barcode } = req.params
     if (!barcode) {
-      return res.status(400).json({ message: "Barcode required" })
+      return handleResponse(res, 400, "Barcode required")
     }
 
     const product = await Product.findOne({ "barcode.gtin": barcode })
     if (!product) {
-      return res.status(404).json({ message: "Product not found" })
+      return handleResponse(res, 404, "Product not found")
     }
 
     const prices = await StoreProduct.find({ product: product._id })
 
-    return res.status(200).json({ product, prices })
+    return handleResponse(res, 200, "Product fetched successfully", {product, prices})
   } catch (error) {
     console.error(error)
-    return res.status(500).json({ message: "Server error" })
+    return handleResponse(res, 500, "Server error")
   }
 }
 
@@ -27,19 +28,19 @@ const getProductPriceByName = async (req: Request, res: Response) => {
   try {
     const { name } = req.params
     if (!name) {
-      return res.status(400).json({ message: "Name required" })
+      return handleResponse(res, 400, "Name required")
     }
 
     const product = await Product.findOne({ name })
     if (!product) {
-      return res.status(404).json({ message: "Product not found" })
+      return handleResponse(res, 404, "Product not found")
     }
 
     const prices = await StoreProduct.find({ product: product._id })
-    return res.status(200).json({ product, prices })
+    return handleResponse(res, 200, "Product fetched successfully", {product, prices})
   } catch (error) {
     console.error(error)
-    return res.status(500).json({ message: "Server error" })
+    return handleResponse(res, 500, "Server error")
   }
 }
 
