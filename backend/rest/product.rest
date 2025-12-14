@@ -7,5 +7,13 @@ Content-Type: application/json
   "name": "test_product",
   "barcodeType": "GTIN-14",
   "barcode": "12345678901234",
-  "price": 999
+  "price": 999,
 }
+
+# Get product by barcode 
+GET http://localhost:3000/v1/products/barcode/1234567890123/compare
+Content-Type: application/json
+
+# Get product by name
+GET http://localhost:3000/v1/products/name/Organic%20Milk/compare
+Content-Type: application/json
