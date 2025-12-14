@@ -1,0 +1,11 @@
+
+# Add product
+POST http://localhost:3000/v1/products/scan
+Content-Type: application/json
+
+{
+  "name": "test_product",
+  "barcodeType": "GTIN-14",
+  "barcode": "12345678901234",
+  "price": 999
+}
