@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express"
 import { authUtils } from "../utils/auth.js"
+import { handleResponse } from "../utils/response"
 
 export const authenticate = (
   req: Request,
@@ -11,7 +12,7 @@ export const authenticate = (
 
     // Check if header exists and is in the correct format
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      res.status(401).json({ error: "Invalid token. Please try again." })
+      handleResponse(res, 401, "Invalid token. Please try again.")
       return
     }
 
@@ -24,6 +25,6 @@ export const authenticate = (
 
     next()
   } catch (error) {
-    res.status(401).json({ error: "Invalid token. Please try again." })
+    handleResponse(res, 401, "Invalid token. Please try again.")
   }
 }
