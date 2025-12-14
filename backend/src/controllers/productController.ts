@@ -1,5 +1,5 @@
-import Product from "../models/product"
 import type { Request, Response } from "express"
+import Product from "../models/product"
 import StoreProduct from "../models/storeProduct"
 
 const getProductPriceByBarcode = async (req: Request, res: Response) => {
@@ -17,7 +17,7 @@ const getProductPriceByBarcode = async (req: Request, res: Response) => {
     const prices = await StoreProduct.find({ product: product._id })
 
     return res.status(200).json({ product, prices })
-  } catch (error: any) {
+  } catch (error) {
     console.error(error)
     return res.status(500).json({ message: "Server error" })
   }
@@ -37,7 +37,7 @@ const getProductPriceByName = async (req: Request, res: Response) => {
 
     const prices = await StoreProduct.find({ product: product._id })
     return res.status(200).json({ product, prices })
-  } catch (error: any) {
+  } catch (error) {
     console.error(error)
     return res.status(500).json({ message: "Server error" })
   }
