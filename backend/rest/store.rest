@@ -1,5 +1,5 @@
 // Authentication token (get this from the store user login)
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNlYjkxZTVhMDJlMGJjZjJiYjIyNTEiLCJyb2xlIjoic3RvcmVVc2VyIiwiZW1haWwiOiJrYWxsZWthdXBwaWFzMTlAZXhhbXBsZS5jb20iLCJzdGF0dXMiOiJ1bmxvY2tlZCIsImlhdCI6MTc2NTcyMzY5NywiZXhwIjoxNzY1NzI0NTk3fQ.7iLf0bgrG3B60FHDTkZld0Ew7WphpwXNh_Gg84u7L90
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNlYjkxZTVhMDJlMGJjZjJiYjIyNTEiLCJyb2xlIjoic3RvcmVVc2VyIiwiZW1haWwiOiJrYWxsZWthdXBwaWFzMTlAZXhhbXBsZS5jb20iLCJzdGF0dXMiOiJ1bmxvY2tlZCIsImlhdCI6MTc2NTcyNDY1MiwiZXhwIjoxNzY1NzI1NTUyfQ.ShOAg-OV3sgrCxwRu6GS31oxUO3PNy8evBiKrdr-Apg
 
 ### Update store name and location
 PUT http://localhost:3000/v1/store
@@ -9,7 +9,7 @@ Content-Type: application/json
 {
   "name": "K-citymarket Kupittaa",
   "latitude": 30.192059,
-  "longitude": 25.945831
+  "longitude": 28.945831
 }
 
 ### Add a product
