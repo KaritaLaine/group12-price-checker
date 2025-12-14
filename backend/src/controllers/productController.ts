@@ -16,6 +16,7 @@ const getProductPriceByBarcode = async (req: Request, res: Response) => {
     }
 
     const prices = await StoreProduct.find({ product: product._id })
+      .populate("store", "name location");
 
     if (!prices || prices.length === 0) {
       return handleResponse(res, 200, "Product fetched successfully, but no prices found. Shopper must enter price manually.", {

@@ -34,19 +34,7 @@ const storeProductSchema = new Schema<StoreProduct>(
     source: {
       type: String,
       enum: ["store_batch", "shopper"],
-    },
-    location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        default: "Point",
-        required: true,
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
-    },
+    }
   },
   { timestamps: true }
 )
