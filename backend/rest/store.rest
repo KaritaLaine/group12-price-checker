@@ -1,5 +1,5 @@
 // Authentication token (get this from the store user login)
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNlYjkxZTVhMDJlMGJjZjJiYjIyNTEiLCJyb2xlIjoic3RvcmVVc2VyIiwiZW1haWwiOiJrYWxsZWthdXBwaWFzMTlAZXhhbXBsZS5jb20iLCJzdGF0dXMiOiJ1bmxvY2tlZCIsImlhdCI6MTc2NTcxODY2NSwiZXhwIjoxNzY1NzE5NTY1fQ.6pbkGwLIvftML7e601y9GUfJV_XPxgLZrC_egoPoyUI
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNlYjkxZTVhMDJlMGJjZjJiYjIyNTEiLCJyb2xlIjoic3RvcmVVc2VyIiwiZW1haWwiOiJrYWxsZWthdXBwaWFzMTlAZXhhbXBsZS5jb20iLCJzdGF0dXMiOiJ1bmxvY2tlZCIsImlhdCI6MTc2NTcyMzY5NywiZXhwIjoxNzY1NzI0NTk3fQ.7iLf0bgrG3B60FHDTkZld0Ew7WphpwXNh_Gg84u7L90
 
 ### Update store name and location
 PUT http://localhost:3000/v1/store
@@ -18,9 +18,9 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Organic Milk",
+  "name": "Kevyt maito",
   "barcodeType": "EAN",
-  "gtin": "1234567890123",
+  "gtin": "1234567893123",
   "price": 3.99,
   "location": {
     "latitudes": 60.169,
@@ -35,9 +35,9 @@ Content-Type: application/json
 
 [
   {
-    "name": "Bread",
+    "name": "Makkara",
     "barcodeType": "EAN",
-    "gtin": "9876543210986",
+    "gtin": "9376543210486",
     "price": 2.49,
     "location": {
       "latitudes": 60.169,
@@ -45,9 +45,9 @@ Content-Type: application/json
     }
   },
   {
-    "name": "Cheese",
+    "name": "Rasvaton maito",
     "barcodeType": "UPC",
-    "gtin": "1230984567891",
+    "gtin": "12324984527891",
     "price": 5.99,
     "location": {
       "latitudes": 60.169,
@@ -57,7 +57,7 @@ Content-Type: application/json
 ]
 
 ### Apply a discount to a store product
-PUT http://localhost:3000/v1/store/products/693ebd0f2882bc8f9f7e5d48/discount
+PUT http://localhost:3000/v1/store/products/693ed0416e03525f414c1af7/discount
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
