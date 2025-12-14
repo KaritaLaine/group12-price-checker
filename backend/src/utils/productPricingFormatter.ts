@@ -45,7 +45,7 @@ const getPriceLabel = (value: number, averagePrice: number) => {
 const formatEntry = (entry: PriceEntry, averagePrice: number) => {
   const label = getPriceLabel(entry.effectivePrice, averagePrice)
   return {
-    price: entry.price,
+    price: entry.discountedPrice ?? entry.price,
     discountedPrice: entry.discountedPrice,
     label: label.label,
     store: {
