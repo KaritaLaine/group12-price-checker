@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import User from "../models/user"
 import { handleResponse } from "../utils/response"
 
+// Only allow unlocked store users to access store routes
 export const requireUnlockedStoreUser = async (
   req: Request,
   res: Response,
