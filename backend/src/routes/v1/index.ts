@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { authenticate } from "../../middleware/auth"
 import { AuthorizationMiddleware } from "../../middleware/authorize"
+import { requireUnlockedStoreUser } from "../../middleware/unlockedStoreUser"
 import adminRoutes from "./admin/admin"
 import authRoutes from "./auth/auth"
 import productRoutes from "./product/product.routes"
@@ -14,6 +15,7 @@ router.use(
   "/store",
   authenticate,
   AuthorizationMiddleware.storeUserOnly,
+  requireUnlockedStoreUser,
   storeRoutes
 )
 router.use(
