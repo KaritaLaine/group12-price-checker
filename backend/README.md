@@ -76,15 +76,15 @@ Group 12's software architecture course project: a backend for a price checker s
 
 ## Admin functionality
 
-[] - Accept or decline sign up requests (from store users)
+[x] - Accept or decline sign up requests (from store users)
 
-[] - Lock and unlock store users
+[x] - Lock and unlock store users
 
-[] - Delete store user accounts
+[x] - Delete store user accounts
 
-[] - Create another admins
+[x] - Create another admins
 
-[] - Log admin operations for auditing
+[x] - Log admin operations for auditing
 
 # Evaluation checklist
 

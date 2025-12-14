@@ -45,8 +45,8 @@ POST http://localhost:3000/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "adminabuser",
-  "password": "Kissakoira123!"
+  "username": "admin",
+  "password": "admin123"
 }
 
 ### Login - Invalid credentials (should fail)
