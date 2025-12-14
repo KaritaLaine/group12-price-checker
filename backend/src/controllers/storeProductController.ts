@@ -25,6 +25,20 @@ const addStoreProducts = async (req: Request, res: Response) => {
       })
     }
 
+    const existingStoreProduct = await StoreProduct.findOne({
+      store: store._id,
+      product: product._id,
+      isCurrent: true,
+    })
+
+    if (existingStoreProduct) {
+      return handleResponse(
+        res,
+        409,
+        `This product already exists in your store`
+      )
+    }
+
     // Add the product to the logged in store user's store
     const storeProduct = await StoreProduct.create({
       store: store._id,
