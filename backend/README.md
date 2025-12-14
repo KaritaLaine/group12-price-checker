@@ -94,7 +94,7 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [x] - Frontend and backend responsibilities are divided logically. No frontends need to be implemented. (2 points)
 
-[] - Separation of concerns (SoC) is applied. Fast-changing parts should not break slow-changing parts. (2 points)
+[x] - Separation of concerns (SoC) is applied. Fast-changing parts should not break slow-changing parts. (2 points)
 
 [] - Code is approachable. It follows established standards and conventions. It documents itself. Abstractions are used in a self-documenting way. Unnecessary documentation is avoided, and part of the documentation is automated. (2 points)
 
