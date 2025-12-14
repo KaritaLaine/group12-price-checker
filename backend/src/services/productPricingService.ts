@@ -7,10 +7,6 @@ export const findProductByBarcode = (barcode: string) => {
   return Product.findOne({ "barcode.gtin": barcode })
 }
 
-export const findProductByName = (name: string) => {
-  return Product.findOne({ name })
-}
-
 export const findReferenceStore = (storeId: string) => {
   return Store.findById(storeId).select("location name")
 }
@@ -37,8 +33,4 @@ export const findPricesForStores = (
     .sort({ price: 1 })
     .populate("store", "name location")
     .lean()
-}
-
-export const findPricesForProduct = (productId: mongoose.Types.ObjectId) => {
-  return StoreProduct.find({ product: productId })
 }

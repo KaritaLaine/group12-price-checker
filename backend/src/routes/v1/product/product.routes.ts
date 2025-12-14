@@ -4,9 +4,7 @@ import { productController } from "../../../controllers/productController"
 const router = Router()
 
 router.get(
-  "/barcode/:barcode/compare",
+  "/compare/:barcode",
   productController.getProductPriceByBarcode
 )
-router.get("/name/:name/compare", productController.getProductPriceByName)
-
 export default router

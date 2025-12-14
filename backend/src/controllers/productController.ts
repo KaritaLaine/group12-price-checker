@@ -3,10 +3,8 @@ import mongoose from "mongoose"
 import { handleResponse } from "../utils/response"
 import {
   findNearbyStores,
-  findPricesForProduct,
   findPricesForStores,
   findProductByBarcode,
-  findProductByName,
   findReferenceStore,
 } from "../services/productPricingService"
 import { buildPriceView } from "../utils/productPricingFormatter"
@@ -79,27 +77,6 @@ const getProductPriceByBarcode = async (req: Request, res: Response) => {
   }
 }
 
-const getProductPriceByName = async (req: Request, res: Response) => {
-  try {
-    const { name } = req.params
-    if (!name) {
-      return handleResponse(res, 400, "Name required")
-    }
-
-    const product = await findProductByName(name)
-    if (!product) {
-      return handleResponse(res, 404, "Product not found")
-    }
-
-    const prices = await findPricesForProduct(product._id)
-    return handleResponse(res, 200, "Product fetched successfully", { product, prices })
-  } catch (error) {
-    console.error(error)
-    return handleResponse(res, 500, "Server error")
-  }
-}
-
 export const productController = {
-  getProductPriceByBarcode,
-  getProductPriceByName,
+  getProductPriceByBarcode
 }
