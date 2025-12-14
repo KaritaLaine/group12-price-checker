@@ -1,0 +1,102 @@
+### REGISTER
+
+### Register a new user
+POST http://localhost:3000/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "KalleKauppias",
+  "email": "KalleKauppias@example.com",
+  "password": "Koira123!"
+}
+
+### Register - Missing required fields (should fail)
+POST http://localhost:3000/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "olavionnistuja"
+}
+
+### Register - Duplicate username (should fail)
+POST http://localhost:3000/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "KalleKauppias",
+  "email": "newemail@example.com",
+  "password": "TestPassword123!"
+}
+
+### LOGIN
+
+### Login - Store user
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "KalleKauppias",
+  "password": "Koira123!"
+}
+
+
+### Login - Admin user
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### Login - Invalid credentials (should fail)
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "KalleKalastaja",
+  "password": "Hackerman123!"
+}
+
+### Login - Missing fields (should fail)
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "MattiMeikäläinen"
+}
+
+### Login - Non-existent user (should fail)
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "MauriMetsuri",
+  "password": "Kissa123!"
+}
+
+### TOKEN REFRESH 
+
+### Refresh access token
+# First login to get a refresh token, then use it here
+POST http://localhost:3000/v1/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNkOTEyZGU0N2Q4Y2VlNDI0NTA3MWQiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluYWJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY1NjQzNDI0LCJleHAiOjE3NjYyNDgyMjR9.eH48oTVeUINwR3vHShcHkmRT56zd1oaQg9AWM1UyS14"
+}
+
+### Refresh token - Missing token (should fail)
+POST http://localhost:3000/v1/auth/refresh
+Content-Type: application/json
+
+{
+}
+
+### Refresh token - Invalid token (should fail)
+POST http://localhost:3000/v1/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "meow"
+}

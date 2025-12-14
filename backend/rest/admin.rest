@@ -1,0 +1,53 @@
+
+// Authentication token (get this from the admin login)
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNkOTEyZGU0N2Q4Y2VlNDI0NTA3MWQiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluYWJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY1NzAwNzY1LCJleHAiOjE3NjU3MDE2NjV9.XYLV1txUkPceC1extqigyhGA1XLoHIgp40VdjHVKhis
+
+### Get all users 
+GET http://localhost:3000/v1/admin/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Approve a pending store user
+PATCH http://localhost:3000/v1/admin/approve/693db0e0fe37fc87e3212ce6
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Decline a pending store user
+PATCH http://localhost:3000/v1/admin/decline/693d9107e47d8cee4245071a
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Lock a store user
+PATCH http://localhost:3000/v1/admin/user-status/693d912de47d8cee4245071d
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "locked"
+}
+
+### Unlock a store user
+PATCH http://localhost:3000/v1/admin/user-status/693d912de47d8cee4245071d
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "unlocked"
+}
+
+### Delete a store user
+DELETE http://localhost:3000/v1/admin/delete/693d912de47d8cee4245071d
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Create a new admin
+POST http://localhost:3000/v1/admin/create-admin
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "Admin22",
+  "email": "uusAdmin22@gmail.com",
+  "password": "Admin123!"
+}
+
