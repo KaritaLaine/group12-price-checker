@@ -1,14 +1,27 @@
 import { type Request, type Response } from "express"
 import User from "../models/user.js"
+import Store from "../models/store.js"
 import { authUtils } from "../utils/auth.js"
 import { handleResponse } from "../utils/response"
 
 const register = async (req: Request, res: Response) => {
   try {
-    const { username, email, password } = req.body
+    const { username, email, password, storeName, latitude, longitude } =
+      req.body
 
-    if (!username || !email || !password) {
-      handleResponse(res, 400, "Please provide username, email, and password")
+    if (
+      !username ||
+      !email ||
+      !password ||
+      !storeName ||
+      !latitude ||
+      !longitude
+    ) {
+      handleResponse(
+        res,
+        400,
+        "Please provide username, email, password, store name, latitude, and longitude"
+      )
       return
     }
 
@@ -25,6 +38,17 @@ const register = async (req: Request, res: Response) => {
     })
 
     await user.save()
+
+    const store = new Store({
+      name: storeName,
+      location: {
+        type: "Point",
+        coordinates: [longitude, latitude],
+      },
+      owner: user._id,
+    })
+
+    await store.save()
 
     handleResponse(res, 201, "User was registered!", user)
   } catch (error) {
