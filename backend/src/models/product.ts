@@ -1,34 +1,27 @@
-import mongoose, { Document, Schema } from "mongoose"
+import mongoose, { Schema } from "mongoose"
+import { Product } from "../types/product"
 
-type BarcodeType = "GTIN-8" | "GTIN-12" | "GTIN-13" | "GTIN-14";
-
-interface IProduct extends Document {
-    name: string
-    barcodeType: BarcodeType
-    barcode: string
-    createdAt: Date
-    updatedAt: Date
-}
-
-const productSchema = new Schema<IProduct>(
+const productSchema = new Schema<Product>(
   {
     name: {
       type: String,
       required: true,
     },
-    barcodeType: {
-        type: String,
-        enum: ["GTIN-8", "GTIN-12", "GTIN-13", "GTIN-14"],
-        required: true },
-    // GTIN number
     barcode: {
-      type: String,
-      required: true,
-      unique: true,
-      match: /^[0-9]{8,14}$/,
+      type: {
+        type: String,
+        enum: ["UPC", "EAN"],
+        required: true,
+      },
+      gtin: {
+        type: String,
+        required: true,
+        unique: true,
+        match: /^[0-9]{8,14}$/,
+      },
     },
   },
   { timestamps: true }
 )
 
-export default mongoose.model<IProduct>("Product", productSchema)
+export default mongoose.model<Product>("Product", productSchema)
