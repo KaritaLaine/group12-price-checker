@@ -7,7 +7,7 @@ import type { StoreProduct as StoreProductType } from "../types/storeProduct"
 // Add products to specific stores
 const addStoreProducts = async (req: Request, res: Response) => {
   const store = await Store.findOne({ owner: req.user!.userId })
-  if (!store) return res.status(404).json({ message: "Store not found" })
+  if (!store) return res.status(404).json({ message: "Store was not found" })
 
   const items = Array.isArray(req.body) ? req.body : [req.body]
   const created: StoreProductType[] = []
