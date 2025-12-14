@@ -1,6 +1,8 @@
+# Dependencies
+
 All dependencies used are well known and actively maintained. Only necessary dependencies are used to minimize security risks.
 
-Main dependencies and their purposes in the system:
+**Main dependencies and their purposes in the system:**
 
 - Mongoose to work with MongoDB using schemas.
 
