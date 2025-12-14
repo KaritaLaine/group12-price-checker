@@ -36,12 +36,14 @@ const storeProductSchema = new Schema<StoreProduct>(
       enum: ["store_batch", "shopper"],
     },
     location: {
-      latitudes: {
-        type: Number,
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point",
         required: true,
       },
-      longitudes: {
-        type: Number,
+      coordinates: {
+        type: [Number],
         required: true,
       },
     },
