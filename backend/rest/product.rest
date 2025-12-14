@@ -1,5 +1,5 @@
 
-# Add product
+### Add product
 POST http://localhost:3000/v1/products/scan
 Content-Type: application/json
 
@@ -10,10 +10,10 @@ Content-Type: application/json
   "price": 999,
 }
 
-# Get product by barcode 
+### Get product by barcode 
 GET http://localhost:3000/v1/products/barcode/1234567890123/compare?storeId=693eb91e5a02e0bcf2bb2253&maxDistance=5000
 Content-Type: application/json
 
-# Get product by name
+### Get product by name
 GET http://localhost:3000/v1/products/name/Organic%20Milk/compare
 Content-Type: application/json
