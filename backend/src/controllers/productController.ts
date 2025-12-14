@@ -17,7 +17,15 @@ const getProductPriceByBarcode = async (req: Request, res: Response) => {
 
     const prices = await StoreProduct.find({ product: product._id })
 
-    return handleResponse(res, 200, "Product fetched successfully", {product, prices})
+    if (!prices || prices.length === 0) {
+      return handleResponse(res, 200, "Product fetched successfully, but no prices found. Shopper must enter price manually.", {
+        product,
+        prices: [],
+        manualPriceEntryRequired: true
+      });
+    }
+
+    return handleResponse(res, 200, "Product fetched successfully", {product, prices, manualPriceEntryRequired: false})
   } catch (error) {
     console.error(error)
     return handleResponse(res, 500, "Server error")
