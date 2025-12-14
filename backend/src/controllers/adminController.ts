@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import User from "../models/user"
+import { logAdminAction } from "../utils/adminLogger"
 import { handleResponse } from "../utils/response"
 
 // Get all users
@@ -28,6 +29,14 @@ const deleteStoreUser = async (req: Request, res: Response) => {
     if (!deletedUser) return handleResponse(res, 404, "User was not found")
 
     handleResponse(res, 200, "User has been deleted", deletedUser)
+
+    // Log delete store user for auditing
+    await logAdminAction({
+      adminId: req.user!.userId,
+      action: "DELETE_STORE_USER",
+      targetUserId: userId,
+      details: `Deleted user with email ${user.email}`,
+    })
   } catch (err) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
@@ -48,6 +57,14 @@ const approveStoreUser = async (req: Request, res: Response) => {
     await user.save()
 
     res.json({ message: "User has been approved", user })
+
+    // Log approve store user for auditing
+    await logAdminAction({
+      adminId: req.user!.userId,
+      action: "APPROVE_STORE_USER",
+      targetUserId: userId,
+      details: `Approved user with email ${user.email}`,
+    })
   } catch (err) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
@@ -67,6 +84,14 @@ const declineStoreUser = async (req: Request, res: Response) => {
     await deleteStoreUser(req, res)
 
     handleResponse(res, 200, "User has declined and deleted", user)
+
+    // Log decline store user for auditing
+    await logAdminAction({
+      adminId: req.user!.userId,
+      action: "DECLINE_STORE_USER",
+      targetUserId: userId,
+      details: `Declined user with email ${user.email}`,
+    })
   } catch (err) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
@@ -91,6 +116,14 @@ const updateStoreUserStatus = async (req: Request, res: Response) => {
     await user.save()
 
     handleResponse(res, 200, "User status has been updated", user)
+
+    // Log update store user status for auditing
+    await logAdminAction({
+      adminId: req.user!.userId,
+      action: "UPDATE_STORE_USER_STATUS",
+      targetUserId: userId,
+      details: `Updated user with email ${user.email} status to ${status}`,
+    })
   } catch (err) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
@@ -115,6 +148,14 @@ const createAdmin = async (req: Request, res: Response) => {
     await newAdmin.save()
 
     handleResponse(res, 201, "Admin account has been created", newAdmin)
+
+    // Log create admin for auditing
+    await logAdminAction({
+      adminId: req.user!.userId,
+      action: "CREATE_ADMIN",
+      targetUserId: newAdmin._id.toString(),
+      details: `Created admin with email ${email}`,
+    })
   } catch (err) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
