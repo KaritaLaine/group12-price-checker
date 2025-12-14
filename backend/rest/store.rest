@@ -1,0 +1,66 @@
+// Authentication token (get this from the store user login)
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNlYjkxZTVhMDJlMGJjZjJiYjIyNTEiLCJyb2xlIjoic3RvcmVVc2VyIiwiZW1haWwiOiJrYWxsZWthdXBwaWFzMTlAZXhhbXBsZS5jb20iLCJzdGF0dXMiOiJ1bmxvY2tlZCIsImlhdCI6MTc2NTcxODY2NSwiZXhwIjoxNzY1NzE5NTY1fQ.6pbkGwLIvftML7e601y9GUfJV_XPxgLZrC_egoPoyUI
+
+### Update store name and location
+PUT http://localhost:3000/v1/store
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "K-citymarket Kupittaa",
+  "latitude": 30.192059,
+  "longitude": 25.945831
+}
+
+### Add a product
+POST http://localhost:3000/v1/store/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Organic Milk",
+  "barcodeType": "EAN",
+  "gtin": "1234567890123",
+  "price": 3.99,
+  "location": {
+    "latitudes": 60.169,
+    "longitudes": 24.935
+  }
+}
+
+### Add multiple products at once
+POST http://localhost:3000/v1/store/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+[
+  {
+    "name": "Bread",
+    "barcodeType": "EAN",
+    "gtin": "9876543210986",
+    "price": 2.49,
+    "location": {
+      "latitudes": 60.169,
+      "longitudes": 24.935
+    }
+  },
+  {
+    "name": "Cheese",
+    "barcodeType": "UPC",
+    "gtin": "1230984567891",
+    "price": 5.99,
+    "location": {
+      "latitudes": 60.169,
+      "longitudes": 24.935
+    }
+  }
+]
+
+### Apply a discount to a store product
+PUT http://localhost:3000/v1/store/products/693ebd0f2882bc8f9f7e5d48/discount
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "discountedPrice": 1.99
+}
