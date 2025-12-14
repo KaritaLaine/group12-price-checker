@@ -118,7 +118,7 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [] - Deployment is tested on at least two different platforms. (2 points)
 
-[] - All third-party dependencies are safe and documented. (2 points)
+[x] - All third-party dependencies are safe and documented. (2 points)
 
 [] - Authentication and authorization is secure and the mechanisms are evaluated. Only secure ones are used. (2 points)
 
