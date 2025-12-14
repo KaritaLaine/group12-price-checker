@@ -11,8 +11,8 @@ export interface StoreProduct extends Document {
   discountedPrice?: number
   source?: PriceSource
   location: {
-    latitudes: number
-    longitudes: number
+    type: "Point"
+    coordinates: [number, number]
   }
   createdAt: Date
   updatedAt: Date
