@@ -11,7 +11,8 @@
     "start": "tsx src/index.ts",
     "dev": "nodemon --exec tsx src/index.ts",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "serve": "node dist/index.js",
+    "seed": "tsx script/seed.ts"
   },
   "keywords": [],
   "author": "",
