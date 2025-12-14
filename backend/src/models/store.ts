@@ -1,37 +1,34 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose"
+import type { Store } from "../types/store"
 
-interface IStore extends Document {
-    name: string
-    location: {
-        type: string
-        coordinates: [number, number] // [longitude, latitude]
-    }
-    createdAt: Date
-    updatedAt: Date
-}
-
-const storeSchema = new Schema<IStore>({
+const storeSchema = new Schema<Store>(
+  {
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-    // Location is stored in GeoJSON format
     location: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            required: true,
-            default: 'Point'
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        }
-    }
-},
-    { timestamps: true }
-) 
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point",
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
+    owner: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
+      unique: true,
+    },
+  },
+  { timestamps: true }
+)
 
-storeSchema.index({ location: "2dsphere" });
+storeSchema.index({ location: "2dsphere" })
 
-export default mongoose.model<IStore>("Store", storeSchema)
+export default mongoose.model<Store>("Store", storeSchema)
