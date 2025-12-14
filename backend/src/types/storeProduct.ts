@@ -10,10 +10,6 @@ export interface StoreProduct extends Document {
   isCurrent: boolean
   discountedPrice?: number
   source?: PriceSource
-  location: {
-    type: "Point"
-    coordinates: [number, number]
-  }
   createdAt: Date
   updatedAt: Date
 }

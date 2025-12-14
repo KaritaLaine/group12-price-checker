@@ -1,5 +1,5 @@
 
-# Add product
+### Add product
 POST http://localhost:3000/v1/products/scan
 Content-Type: application/json
 
@@ -7,5 +7,9 @@ Content-Type: application/json
   "name": "test_product",
   "barcodeType": "GTIN-14",
   "barcode": "12345678901234",
-  "price": 999
+  "price": 999,
 }
+
+### Get product by barcode 
+GET http://localhost:3000/v1/products/compare/1234567890123?storeId=693eb91e5a02e0bcf2bb2253&maxDistance=5000
+Content-Type: application/json

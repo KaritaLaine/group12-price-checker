@@ -43,8 +43,7 @@ const addStoreProducts = async (req: Request, res: Response) => {
     const storeProduct = await StoreProduct.create({
       store: store._id,
       product: product._id,
-      price,
-      location,
+      price
     })
 
     created.push(storeProduct)
