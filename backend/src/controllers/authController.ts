@@ -1,21 +1,20 @@
 import { type Request, type Response } from "express"
 import User from "../models/user.js"
 import { authUtils } from "../utils/auth.js"
+import { handleResponse } from "../utils/response"
 
 const register = async (req: Request, res: Response) => {
   try {
     const { username, email, password } = req.body
 
     if (!username || !email || !password) {
-      res.status(400).json({
-        error: "Please provide username, email, and password and try again.",
-      })
+      handleResponse(res, 400, "Please provide username, email, and password")
       return
     }
 
     const existingUser = await User.findOne({ $or: [{ username }, { email }] })
     if (existingUser) {
-      res.status(409).json({ error: "Username or e-mail is already in use!" })
+      handleResponse(res, 409, "This username or email is already in use")
       return
     }
 
@@ -27,18 +26,9 @@ const register = async (req: Request, res: Response) => {
 
     await user.save()
 
-    res.status(201).json({
-      message: "User has been registered!",
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-        status: user.status,
-      },
-    })
+    handleResponse(res, 201, "User was registered!", user)
   } catch (error) {
-    console.error("Error registering user:", error)
+    handleResponse(res, 500, "Something went wrong, please try again!")
   }
 }
 
@@ -47,33 +37,33 @@ const login = async (req: Request, res: Response) => {
     const { username, password } = req.body
 
     if (!username || !password) {
-      res
-        .status(400)
-        .json({ error: "Please provide username and password and try again." })
+      handleResponse(res, 400, "Please provide username and password")
       return
     }
 
     const user = await User.findOne({ username })
     if (!user) {
-      res
-        .status(401)
-        .json({ error: "Invalid login credentials, please try again." })
+      handleResponse(res, 401, "Invalid login credentials, please try again.")
       return
     }
 
     // Check if account is locked
     if (user.status === "locked") {
-      res.status(403).json({
-        error: "Your account is locked. Please contact the administrators.",
-      })
+      handleResponse(
+        res,
+        403,
+        "Your account is locked. Please contact support."
+      )
       return
     }
 
     // Check if account is waiting for admin approval
     if (user.status === "pending" && user.role === "storeUser") {
-      res.status(403).json({
-        error: "Your account is waiting for approval. Please try again later.",
-      })
+      handleResponse(
+        res,
+        403,
+        "Your account is waiting for admin approval. Please try again later."
+      )
       return
     }
 
@@ -83,9 +73,7 @@ const login = async (req: Request, res: Response) => {
       user.password
     )
     if (!isPasswordValid) {
-      res
-        .status(401)
-        .json({ error: "Invalid login credentials, please try again." })
+      handleResponse(res, 401, "Invalid login credentials, please try again.")
       return
     }
 
@@ -100,21 +88,16 @@ const login = async (req: Request, res: Response) => {
     const accessToken = authUtils.generateAccessToken(tokenPayload)
     const refreshToken = authUtils.generateRefreshToken(tokenPayload)
 
-    // Send tokens and user info back to client
-    res.json({
-      message: "User logged in successfully!",
+    handleResponse(
+      res,
+      200,
+      "User logged in successfully!",
+      user,
       accessToken,
-      refreshToken,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-        status: user.status,
-      },
-    })
+      refreshToken
+    )
   } catch (error) {
-    console.error("Error logging in user:", error)
+    handleResponse(res, 500, "Something went wrong, please try again!")
   }
 }
 
@@ -124,7 +107,7 @@ const refreshToken = async (req: Request, res: Response) => {
     const { refreshToken } = req.body
 
     if (!refreshToken) {
-      res.status(400).json({ error: "You need a refresh token." })
+      handleResponse(res, 400, "You need a refresh token")
       return
     }
 
@@ -134,9 +117,11 @@ const refreshToken = async (req: Request, res: Response) => {
     // Check that user exists and is unlocked
     const user = await User.findById(payload.userId)
     if (!user || user.status === "locked") {
-      res
-        .status(401)
-        .json({ error: "Invalid token or account locked, please try again" })
+      handleResponse(
+        res,
+        403,
+        "Invalid token or account is locked. Please try again."
+      )
       return
     }
 
@@ -148,12 +133,9 @@ const refreshToken = async (req: Request, res: Response) => {
     }
     const accessToken = authUtils.generateAccessToken(newTokenPayload)
 
-    // Send new access token back to the client
-    res.json({
-      accessToken,
-    })
+    handleResponse(res, 200, "Token refreshed!", user, accessToken)
   } catch (error) {
-    console.error("Error refreshing token:", error)
+    handleResponse(res, 500, "Something went wrong, please try again!")
   }
 }
 
