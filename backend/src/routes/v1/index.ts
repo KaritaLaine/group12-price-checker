@@ -4,11 +4,18 @@ import { AuthorizationMiddleware } from "../../middleware/authorize"
 import adminRoutes from "./admin/admin"
 import authRoutes from "./auth/auth"
 import productRoutes from "./product/product.routes"
+import storeRoutes from "./store/store"
 
 const router = Router()
 
 router.use("/auth", authRoutes)
 router.use("/products", productRoutes)
+router.use(
+  "/store",
+  authenticate,
+  AuthorizationMiddleware.storeUserOnly,
+  storeRoutes
+)
 router.use(
   "/admin",
   authenticate,
