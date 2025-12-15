@@ -25,6 +25,7 @@ const buildStore = async (name: string, coords: [number, number]) => {
 }
 
 describe("GET /v1/products/compare/:barcode", () => {
+  // Validates storeId query requirement
   it("validates storeId query param", async () => {
     const res = await request(app).get("/v1/products/compare/12345678")
 
@@ -32,6 +33,7 @@ describe("GET /v1/products/compare/:barcode", () => {
     expect(res.body.message).toMatch(/storeid required/i)
   })
 
+  // Returns 404 when product does not exist
   it("returns 404 when product is missing", async () => {
     const store = await buildStore("reference", [24.94, 60.17])
     const res = await request(app)
@@ -42,6 +44,7 @@ describe("GET /v1/products/compare/:barcode", () => {
     expect(res.body.message).toMatch(/product not found/i)
   })
 
+  // Returns 404 when reference store lookup fails
   it("returns 404 when reference store does not exist", async () => {
     await Product.create({
       name: "Milk",
@@ -56,6 +59,7 @@ describe("GET /v1/products/compare/:barcode", () => {
     expect(res.body.message).toMatch(/reference store not found/i)
   })
 
+  // Returns price comparison payload for nearby stores
   it("returns formatted prices for nearby stores", async () => {
     const product = await Product.create({
       name: "Juice",

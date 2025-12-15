@@ -39,6 +39,7 @@ describe("productController.getProductPriceByBarcode", () => {
     vi.resetAllMocks()
   })
 
+  // Validates missing barcode path param
   it("validates missing barcode", async () => {
     const { req, res, body } = buildContext({ params: {} as any })
 
@@ -48,6 +49,7 @@ describe("productController.getProductPriceByBarcode", () => {
     expect(body.message).toMatch(/barcode required/i)
   })
 
+  // Validates missing storeId query param
   it("validates missing storeId", async () => {
     const { req, res, body } = buildContext({ query: {} as any })
 
@@ -57,6 +59,7 @@ describe("productController.getProductPriceByBarcode", () => {
     expect(body.message).toMatch(/storeid required/i)
   })
 
+  // Returns 404 when product is not in the database
   it("returns 404 when product is not found", async () => {
     const { req, res, body } = buildContext()
     vi.spyOn(pricingService, "findProductByBarcode").mockResolvedValue(null as any)
@@ -67,6 +70,7 @@ describe("productController.getProductPriceByBarcode", () => {
     expect(body.message).toMatch(/product not found/i)
   })
 
+  // Returns 404 when reference store lookup fails
   it("returns 404 when reference store is not found", async () => {
     const { req, res, body } = buildContext()
     vi.spyOn(pricingService, "findProductByBarcode").mockResolvedValue(product)
@@ -78,6 +82,7 @@ describe("productController.getProductPriceByBarcode", () => {
     expect(body.message).toMatch(/reference store not found/i)
   })
 
+  // Responds with manual entry flag when no nearby stores
   it("returns manual entry response when no nearby stores", async () => {
     const { req, res, body } = buildContext()
     vi.spyOn(pricingService, "findProductByBarcode").mockResolvedValue(product)
@@ -91,6 +96,7 @@ describe("productController.getProductPriceByBarcode", () => {
     expect(body.data?.manualPriceEntryRequired).toBe(true)
   })
 
+  // Responds with manual entry flag when stores exist but no prices
   it("returns manual entry response when no prices", async () => {
     const { req, res, body } = buildContext()
     vi.spyOn(pricingService, "findProductByBarcode").mockResolvedValue(product)
@@ -105,6 +111,7 @@ describe("productController.getProductPriceByBarcode", () => {
     expect(body.data?.manualPriceEntryRequired).toBe(true)
   })
 
+  // Returns formatted pricing payload when data is available
   it("returns formatted prices when data exists", async () => {
     const { req, res, body } = buildContext()
     const formatted = { product: {}, currentStore: {}, nearbyStores: [] }

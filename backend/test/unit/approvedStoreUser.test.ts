@@ -25,6 +25,7 @@ describe("requireUnlockedStoreUser middleware", () => {
     findByIdSpy.mockReset()
   })
 
+  // Fails with 404 when the user document is missing
   it("returns 404 when user is not found", async () => {
     const { req, res, next, body } = buildContext()
     findByIdSpy.mockResolvedValue(null as any)
@@ -36,6 +37,7 @@ describe("requireUnlockedStoreUser middleware", () => {
     expect(next).not.toHaveBeenCalled()
   })
 
+  // Rejects requests when user status is not unlocked
   it("blocks store users that are not unlocked", async () => {
     const { req, res, next, body } = buildContext()
     findByIdSpy.mockResolvedValue({ status: "pending" } as any)
@@ -47,6 +49,7 @@ describe("requireUnlockedStoreUser middleware", () => {
     expect(next).not.toHaveBeenCalled()
   })
 
+  // Passes through when user status is unlocked
   it("allows unlocked store users", async () => {
     const { req, res, next } = buildContext()
     findByIdSpy.mockResolvedValue({ status: "unlocked" } as any)

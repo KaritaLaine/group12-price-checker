@@ -40,6 +40,7 @@ const authHeader = (token: string) => ({
 })
 
 describe("Store routes", () => {
+  // Store user can update their store details
   it("updates store information for the logged in user", async () => {
     const { store, token } = await createStoreUserWithStore()
 
@@ -60,6 +61,7 @@ describe("Store routes", () => {
     expect(updated?.location.coordinates).toEqual([25.0, 61.0])
   })
 
+  // Store user can add a product to inventory
   it("adds a new product to the store inventory", async () => {
     const { store, token } = await createStoreUserWithStore()
     const payload = {
@@ -90,6 +92,7 @@ describe("Store routes", () => {
     expect(storeProduct?.price).toBe(payload.price)
   })
 
+  // Prevents adding duplicate products to the same store
   it("prevents adding duplicate products to the same store", async () => {
     const { token } = await createStoreUserWithStore()
     const payload = {
@@ -114,6 +117,7 @@ describe("Store routes", () => {
     expect(res.body.message).toMatch(/already exists/i)
   })
 
+  // Allows adding a discount to an existing store product
   it("applies a discount to an existing store product", async () => {
     const { store, token } = await createStoreUserWithStore()
     const product = await Product.create({

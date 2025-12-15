@@ -13,6 +13,7 @@ const createAccessTokenFor = (user: any) =>
   })
 
 describe("Admin routes", () => {
+  // Rejects missing auth header on admin route
   it("returns 401 when no auth header is provided", async () => {
     const res = await request(app).get("/v1/admin/users")
 
@@ -20,6 +21,7 @@ describe("Admin routes", () => {
     expect(res.body.message).toMatch(/invalid token/i)
   })
 
+  // Rejects non-admin user hitting admin route
   it("returns 403 when a non-admin tries to access admin routes", async () => {
     const storeUser = await User.create({
       username: "store-user",
@@ -37,6 +39,7 @@ describe("Admin routes", () => {
     expect(res.body.message).toMatch(/permissions/i)
   })
 
+  // Admin can list users successfully
   it("allows an admin to list users", async () => {
     const admin = await User.create({
       username: "admin-user",
@@ -63,6 +66,7 @@ describe("Admin routes", () => {
     expect(res.body.data).toHaveLength(2)
   })
 
+  // Admin can approve pending store user
   it("allows an admin to approve a pending store user", async () => {
     const admin = await User.create({
       username: "approver",
@@ -90,6 +94,7 @@ describe("Admin routes", () => {
     expect(updatedUser?.status).toBe("unlocked")
   })
 
+  // Admin can lock a store user account
   it("allows an admin to lock a store user", async () => {
     const admin = await User.create({
       username: "locker",

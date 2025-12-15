@@ -8,6 +8,7 @@ const store = (id: string, name: string) => ({
 })
 
 describe("buildPriceView", () => {
+  // Builds view with current store, nearby stores, and labels based on averages
   it("maps prices into current and nearby stores with labels", () => {
     const product = {
       name: "Milk",
@@ -35,6 +36,7 @@ describe("buildPriceView", () => {
     expect(result.nearbyStores[0].label).toBe("very inexpensive")
   })
 
+  // Handles case where current store price is missing
   it("returns null currentStore when matching store not found", () => {
     const product = { name: "Juice", barcode: { type: "EAN", gtin: "999" } }
     const prices = [{ price: 3.5, store: store("other", "Other") }]

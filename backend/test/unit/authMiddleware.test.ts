@@ -23,6 +23,7 @@ describe("authenticate middleware", () => {
     vi.restoreAllMocks()
   })
 
+  // Rejects missing Authorization header
   it("returns 401 when authorization header is missing", () => {
     const { req, res, next, body } = buildContext()
 
@@ -33,6 +34,7 @@ describe("authenticate middleware", () => {
     expect(next).not.toHaveBeenCalled()
   })
 
+  // Rejects non-Bearer Authorization schemes
   it("returns 401 when authorization header is not Bearer", () => {
     const { req, res, next, body } = buildContext("Token abc.def.ghi")
 
@@ -43,6 +45,7 @@ describe("authenticate middleware", () => {
     expect(next).not.toHaveBeenCalled()
   })
 
+  // Rejects when token verification throws
   it("returns 401 when token verification fails", () => {
     vi.spyOn(authUtils, "verifyToken").mockImplementation(() => {
       throw new Error("boom")
@@ -56,6 +59,7 @@ describe("authenticate middleware", () => {
     expect(next).not.toHaveBeenCalled()
   })
 
+  // Attaches payload and calls next when token is valid
   it("attaches the payload and calls next when token is valid", () => {
     const payload = {
       userId: "user-123",
