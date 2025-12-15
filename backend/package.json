@@ -13,6 +13,8 @@
     "build": "tsc",
     "serve": "node dist/index.js",
     "seed": "tsx script/seed.ts",
+    "docs:generate": "redocly build-docs src/config/swagger.yaml -o docs/api/api-documentation.html",
+    "docs:md": "node node_modules/widdershins/widdershins.js --search false --language_tabs 'javascript:JavaScript' 'python:Python' --summary src/config/swagger.yaml -o docs/api/api-reference.md",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -34,14 +36,19 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.15",
+    "widdershins": "^4.0.1"
   },
   "dependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/swagger-ui-express": "^4.1.8",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "js-yaml": "^4.1.1",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.0.1"
+    "mongoose": "^9.0.1",
+    "swagger-ui-express": "^5.0.1"
   }
 }
