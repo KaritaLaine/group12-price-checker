@@ -69,6 +69,6 @@ describe("authenticate middleware", () => {
     authenticate(req as any, res, next)
 
     expect(next).toHaveBeenCalled()
-    expect((req as Request).user).toEqual(payload)
+    expect((req as any).user).toEqual(payload)
   })
 })
