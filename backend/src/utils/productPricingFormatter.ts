@@ -29,13 +29,17 @@ const getAveragePrice = (entries: PriceEntry[]) => {
 }
 
 const getPriceLabel = (value: number, averagePrice: number) => {
-  if (value <= averagePrice * 0.8) {
-    return { label: "cheap", indicator: "🟢", color: "green" }
+  if (value <= averagePrice * 0.75) {
+    return { label: "very inexpensive" }
+  } else if (value <= averagePrice * 0.9) {
+    return { label: "inexpensive" }
+  } else if (value >= averagePrice * 1.25) {
+    return { label: "very expensive" }
+  } else if (value >= averagePrice * 1.1) {
+    return { label: "expensive" }
+  } else {
+    return { label: "average" }
   }
-  if (value >= averagePrice * 1.2) {
-    return { label: "expensive", indicator: "🔴", color: "red" }
-  }
-  return { label: "moderate", indicator: "🟡", color: "yellow" }
 }
 
 const formatEntry = (entry: PriceEntry, averagePrice: number) => {
@@ -44,8 +48,6 @@ const formatEntry = (entry: PriceEntry, averagePrice: number) => {
     price: entry.price,
     discountedPrice: entry.discountedPrice,
     label: label.label,
-    indicator: label.indicator,
-    color: label.color,
     store: {
       name: (entry.store as any)?.name,
       location: (entry.store as any)?.location,
@@ -78,8 +80,8 @@ export const buildPriceView = (
       name: product.name,
       barcode: product.barcode,
     },
+    manualPriceEntryRequired: false,
     currentStore,
     nearbyStores,
-    manualPriceEntryRequired: false,
   }
 }
