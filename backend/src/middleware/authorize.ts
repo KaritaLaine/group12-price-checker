@@ -39,18 +39,8 @@ const storeUserOnly = (
   authorize("storeUser")(req, res, next)
 }
 
-// For both admin and store user routes
-const adminAndStoreUser = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
-  authorize("admin", "storeUser")(req, res, next)
-}
-
 export const AuthorizationMiddleware = {
   authorize,
   adminOnly,
   storeUserOnly,
-  adminAndStoreUser,
 }
