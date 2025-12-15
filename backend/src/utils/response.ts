@@ -4,9 +4,7 @@ export const handleResponse = (
   res: Response,
   status: number,
   message: string,
-  data?: object,
-  accessToken?: string,
-  refreshToken?: string
+  data?: object
 ) => {
-  res.status(status).json({ message, data, accessToken, refreshToken })
+  res.status(status).json({ message, data })
 }
