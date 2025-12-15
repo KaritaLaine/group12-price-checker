@@ -58,21 +58,21 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [x] - Sign in
 
-[] - Add new products one by one or multiple at a time
+[x] - Add new products one by one or multiple at a time
 
-    [] - Barcode (type and GTIN number)
+    [x] - Barcode (type and GTIN number)
 
-    [] - Location (latitudes and longtitudes)
+    [x] - Location (latitudes and longtitudes)
 
-    [] - Price of the product
+    [x] - Price of the product
 
-[] - Add discounts to specific products
+[x] - Add discounts to specific products
 
-[] - Edit store info
+[x] - Edit store info
 
-    [] - Store name
+    [x] - Store name
 
-    [] - Store location
+    [x] - Store location
 
 ## Admin functionality
 
@@ -118,7 +118,7 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [] - Deployment is tested on at least two different platforms. (2 points)
 
-[] - All third-party dependencies are safe and documented. (2 points)
+[x] - All third-party dependencies are safe and documented. (2 points)
 
 [] - Authentication and authorization is secure and the mechanisms are evaluated. Only secure ones are used. (2 points)
 

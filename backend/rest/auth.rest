@@ -5,9 +5,12 @@ POST http://localhost:3000/v1/auth/register
 Content-Type: application/json
 
 {
-  "username": "KalleKauppias",
-  "email": "KalleKauppias@example.com",
-  "password": "Koira123!"
+"username": "KalleKauppias19",
+"email": "KalleKauppias19@example.com",
+"password": "Koira123!",
+"storeName": "Kallen Kauppa2",
+"latitude": 60.192059,
+"longitude": 24.945831
 }
 
 ### Register - Missing required fields (should fail)
@@ -23,9 +26,12 @@ POST http://localhost:3000/v1/auth/register
 Content-Type: application/json
 
 {
-  "username": "KalleKauppias",
-  "email": "newemail@example.com",
-  "password": "TestPassword123!"
+"username": "KalleKauppias19",
+"email": "KalleKauppias19@example.com",
+"password": "Koira123!",
+"storeName": "Kallen Kauppa2",
+"latitude": 60.192059,
+"longitude": 24.945831
 }
 
 ### LOGIN
@@ -35,7 +41,7 @@ POST http://localhost:3000/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "KalleKauppias",
+  "username": "KalleKauppias19",
   "password": "Koira123!"
 }
 
