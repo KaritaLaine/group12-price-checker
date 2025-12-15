@@ -1,10 +1,11 @@
-import { describe, it, expect, vi } from "vitest"
+import { describe, it, expect, vi, beforeEach } from "vitest"
 import type { NextFunction, Request, Response } from "express"
-import { requireApprovedStoreUser } from "../../src/middleware/approvedStoreUser"
+import { requireUnlockedStoreUser } from "../../src/middleware/unlockedStoreUser"
+import User from "../../src/models/user"
 
-const buildContext = (status?: string) => {
+const buildContext = () => {
   const req = {
-    user: status ? { status } : undefined,
+    user: { userId: "user-id" },
   } as Partial<Request>
 
   const body: any = {}
@@ -17,31 +18,40 @@ const buildContext = (status?: string) => {
   return { req, res, next, body }
 }
 
-describe("requireApprovedStoreUser middleware", () => {
-  it("blocks pending store users", () => {
-    const { req, res, next, body } = buildContext("pending")
+describe("requireUnlockedStoreUser middleware", () => {
+  const findByIdSpy = vi.spyOn(User, "findById")
 
-    requireApprovedStoreUser(req as any, res, next)
+  beforeEach(() => {
+    findByIdSpy.mockReset()
+  })
 
-    expect(res.status).toHaveBeenCalledWith(401)
-    expect(body.message).toMatch(/waiting for admin approval/i)
+  it("returns 404 when user is not found", async () => {
+    const { req, res, next, body } = buildContext()
+    findByIdSpy.mockResolvedValue(null as any)
+
+    await requireUnlockedStoreUser(req as any, res, next)
+
+    expect(res.status).toHaveBeenCalledWith(404)
+    expect(body.message).toMatch(/was not found/i)
     expect(next).not.toHaveBeenCalled()
   })
 
-  it("blocks locked store users", () => {
-    const { req, res, next, body } = buildContext("locked")
+  it("blocks store users that are not unlocked", async () => {
+    const { req, res, next, body } = buildContext()
+    findByIdSpy.mockResolvedValue({ status: "pending" } as any)
 
-    requireApprovedStoreUser(req as any, res, next)
+    await requireUnlockedStoreUser(req as any, res, next)
 
-    expect(res.status).toHaveBeenCalledWith(401)
-    expect(body.message).toMatch(/waiting for admin approval/i)
+    expect(res.status).toHaveBeenCalledWith(403)
+    expect(body.message).toMatch(/account is locked/i)
     expect(next).not.toHaveBeenCalled()
   })
 
-  it("allows unlocked store users", () => {
-    const { req, res, next } = buildContext("unlocked")
+  it("allows unlocked store users", async () => {
+    const { req, res, next } = buildContext()
+    findByIdSpy.mockResolvedValue({ status: "unlocked" } as any)
 
-    requireApprovedStoreUser(req as any, res, next)
+    await requireUnlockedStoreUser(req as any, res, next)
 
     expect(next).toHaveBeenCalled()
   })
