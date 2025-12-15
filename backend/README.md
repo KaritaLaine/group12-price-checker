@@ -16,41 +16,41 @@ Group 12's software architecture course project: a backend for a price checker s
 
 ## Shopper functionality
 
-[] - Get the product price by barcode
+[x] - Get the product price by barcode
 
-    [] - If there's no price for the product, make the shopper manually enter it
+    [x] - If there's no price for the product, make the shopper manually enter it
 
-    [] - Add location and timestamp to the data
+    [x] - Add location and timestamp to the data
 
-    [] - Securely send and save the following data to the backend
+    [x] - Securely send and save the following data to the backend
 
-        [] - barcode (type and GTIN number)
+        [x] - barcode (type and GTIN number)
 
-        [] - price of product
+        [x] - price of product
 
-        [] - location (latitudes and longitudes)
+        [x] - location (latitudes and longitudes)
 
-        [] - timestamp
+        [x] - timestamp
 
-        [] - optional user preferences (how many kilometers the user thinks is still nearby)
+        [x] - optional user preferences (how many kilometers the user thinks is still nearby)
 
-[] - If the barcode has no product, notify the shopper
+[x] - If the barcode has no product, notify the shopper
 
-[] - Query backend and receive a list of nearby store prices for the same product
+[x] - Query backend and receive a list of nearby store prices for the same product
 
-    [] - Return a sorted list in ascending order by price of nearby stores with
+    [x] - Return a sorted list in ascending order by price of nearby stores with
 
-        [] - Store name and location
+        [x] - Store name and location
 
-        [] - Product price
+        [x] - Product price
 
-        [] - Also contain the store where the customer is currently in
+        [x] - Also contain the store where the customer is currently in
 
-        [] - Label of the product based on relative price (e.g., cheap, expensive)
+        [x] - Label of the product based on relative price (e.g., cheap, expensive)
 
-        [] - Show discounts (added by store users)
+        [x] - Show discounts (added by store users)
 
-    [] - Show the list in a user-friendly format with visual indicators (color coding, icons, labels)
+    [x] - Show the list in a user-friendly format with visual indicators (color coding, icons, labels)
 
 ## Store user functionality
 
@@ -96,17 +96,17 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [x] - Separation of concerns (SoC) is applied. Fast-changing parts should not break slow-changing parts. (2 points)
 
-[] - Code is approachable. It follows established standards and conventions. It documents itself. Abstractions are used in a self-documenting way. Unnecessary documentation is avoided, and part of the documentation is automated. (2 points)
+[x] - Code is approachable. It follows established standards and conventions. It documents itself. Abstractions are used in a self-documenting way. Unnecessary documentation is avoided, and part of the documentation is automated. (2 points)
 
 [x] - Selected architectural style for the backend is suitable for the task, justified, and well-documented. (2 points)
 
-[] - YAGNI: only necessary functionality is implemented. (2 points)
+[x] - YAGNI: only necessary functionality is implemented. (2 points)
 
-[] - DRY: duplicate code is avoided or justified. (2 points)
+[x] - DRY: duplicate code is avoided or justified. (2 points)
 
-[] - KISS: solutions are kept as simple as possible. (2 points)
+[x] - KISS: solutions are kept as simple as possible. (2 points)
 
-[] - SOLID principles are applied with examples in code. (2 points)
+[x] - SOLID principles are applied with examples in code. (2 points)
 
 [x] - At least 2 design patterns are applied. Their use is evaluated and documented. (2 points)
 
@@ -120,9 +120,9 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [x] - All third-party dependencies are safe and documented. (2 points)
 
-[] - Authentication and authorization is secure and the mechanisms are evaluated. Only secure ones are used. (2 points)
+[x] - Authentication and authorization is secure and the mechanisms are evaluated. Only secure ones are used. (2 points)
 
-[] - Secure logging practices are implemented. Sensitive activities are auditable and no secrets are exposed in logs. (2 points)
+[x] - Secure logging practices are implemented. Sensitive activities are auditable and no secrets are exposed in logs. (2 points)
 
 [x] - API is well-defined and follows standard conventions and principles. (2 points)
 
@@ -130,23 +130,23 @@ Group 12's software architecture course project: a backend for a price checker s
 
 [x] - Code structure makes it easy to find modules and components. (2 points)
 
-[] - It is relatively easy to change the technologies the application uses (e.g., persistent storage, web framework), and to update major library and package versions. (2 points)
+[x] - It is relatively easy to change the technologies the application uses (e.g., persistent storage, web framework), and to update major library and package versions. (2 points)
 
-[] - Project is easy for new developers to join and code is reviewed before merging to dev (peer reviews). (2 points)
+[x] - Project is easy for new developers to join and code is reviewed before merging to dev (peer reviews). (2 points)
 
-[] - It’s easy to add new features without breaking existing ones. (2 points)
+[x] - It’s easy to add new features without breaking existing ones. (2 points)
 
-[] - Selection and use of suitable tools is documented. **(Max 4 points, 1 point each)**
+[x] - Selection and use of suitable tools is documented. **(Max 4 points, 1 point each)**
 
-    [] a. Version control
+    [x] a. Version control
 
     [] b. Project management & issue tracking
 
-    [] c. Modeling & documenting architecture
+    [x] c. Modeling & documenting architecture
 
-    [] d. Detecting code smells & enforcing standards
+    [x] d. Detecting code smells & enforcing standards
 
-    [] e. Managing dependencies
+    [x] e. Managing dependencies
 
     [] f. Automatization
 
