@@ -46,7 +46,7 @@ The application is going to use the following technologies:
 
 - Express.js to handle routing and requests.
 
-- Jest and Supertest for writing and running automated tests.
+- Vitest and Supertest for writing and running automated tests.
 
 - Bcrypt for hashing and salting passwords before saving them to the database.
 

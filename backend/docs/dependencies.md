@@ -8,7 +8,7 @@ All dependencies used are well known and actively maintained. Only necessary dep
 
 - TypeScript to add type safety and reduce errors, making the code easier to maintain.
 
-- Jest and Supertest for writing and running automated tests to make sure the app works as intended.
+- Vitest and Supertest for writing and running automated tests to make sure the app works as intended.
 
 - Bcrypt for hashing and salting passwords before saving them to the database.
 
