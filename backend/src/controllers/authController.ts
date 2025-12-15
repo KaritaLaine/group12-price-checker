@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express"
-import User from "../models/user.js"
 import Store from "../models/store.js"
+import User from "../models/user.js"
 import { authUtils } from "../utils/auth.js"
 import { handleResponse } from "../utils/response"
 
@@ -110,17 +110,10 @@ const login = async (req: Request, res: Response) => {
     }
 
     // Generate access and refresh tokens
-    const accessToken = authUtils.generateAccessToken(tokenPayload)
-    const refreshToken = authUtils.generateRefreshToken(tokenPayload)
+    authUtils.generateAccessToken(tokenPayload)
+    authUtils.generateRefreshToken(tokenPayload)
 
-    handleResponse(
-      res,
-      200,
-      "User logged in successfully!",
-      user,
-      accessToken,
-      refreshToken
-    )
+    handleResponse(res, 200, "User logged in successfully!", user)
   } catch (error) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
@@ -157,9 +150,9 @@ const refreshToken = async (req: Request, res: Response) => {
       email: user.email,
       status: user.status,
     }
-    const accessToken = authUtils.generateAccessToken(newTokenPayload)
+    authUtils.generateAccessToken(newTokenPayload)
 
-    handleResponse(res, 200, "Token refreshed!", user, accessToken)
+    handleResponse(res, 200, "Token refreshed!", user)
   } catch (error) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
