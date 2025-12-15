@@ -50,7 +50,12 @@ const register = async (req: Request, res: Response) => {
 
     await store.save()
 
-    handleResponse(res, 201, "User was registered!", user)
+    handleResponse(
+      res,
+      201,
+      "User was registered!",
+      authUtils.sanitizeUser(user)
+    )
   } catch (error) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
@@ -114,7 +119,7 @@ const login = async (req: Request, res: Response) => {
     const refreshToken = authUtils.generateRefreshToken(tokenPayload)
 
     handleResponse(res, 200, "User logged in successfully!", {
-      user,
+      user: authUtils.sanitizeUser(user),
       accessToken,
       refreshToken,
     })
@@ -157,7 +162,7 @@ const refreshToken = async (req: Request, res: Response) => {
     const newAccessToken = authUtils.generateAccessToken(newTokenPayload)
 
     handleResponse(res, 200, "Token refreshed!", {
-      user,
+      user: authUtils.sanitizeUser(user),
       accessToken: newAccessToken,
     })
   } catch (error) {

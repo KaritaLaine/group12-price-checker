@@ -50,6 +50,14 @@ const verifyToken = (token: string): TokenPayload => {
     throw new Error("Invalid or expired token, please try again.")
   }
 }
+// Remove sensitive fields from user object before sending it to client
+const sanitizeUser = (user: any) => ({
+  id: user._id,
+  username: user.username,
+  email: user.email,
+  role: user.role,
+  status: user.status,
+})
 
 export const authUtils = {
   comparePasswords,
@@ -57,4 +65,5 @@ export const authUtils = {
   generateAccessToken,
   generateRefreshToken,
   verifyToken,
+  sanitizeUser,
 }

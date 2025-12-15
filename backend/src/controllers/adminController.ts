@@ -2,13 +2,15 @@ import { Request, Response } from "express"
 import User from "../models/user"
 import { logAdminAction } from "../utils/adminLogger"
 import { handleResponse } from "../utils/response"
+import { authUtils } from "../utils/auth"
 
 // Get all users
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find()
+    const sanitizedUsers = users.map(authUtils.sanitizeUser)
 
-    handleResponse(res, 200, "Users fetched successfully", users)
+    handleResponse(res, 200, "Users fetched successfully", sanitizedUsers)
   } catch (err) {
     handleResponse(res, 500, "Something went wrong, please try again!")
   }
@@ -28,7 +30,12 @@ const deleteStoreUser = async (req: Request, res: Response) => {
     const deletedUser = await User.findByIdAndDelete(userId)
     if (!deletedUser) return handleResponse(res, 404, "User was not found")
 
-    handleResponse(res, 200, "User has been deleted", deletedUser)
+    handleResponse(
+      res,
+      200,
+      "User has been deleted",
+      authUtils.sanitizeUser(deletedUser)
+    )
 
     // Log delete store user for auditing
     await logAdminAction({
@@ -56,7 +63,10 @@ const approveStoreUser = async (req: Request, res: Response) => {
     user.status = "unlocked"
     await user.save()
 
-    res.json({ message: "User has been approved", user })
+    res.json({
+      message: "User has been approved",
+      user: authUtils.sanitizeUser(user),
+    })
 
     // Log approve store user for auditing
     await logAdminAction({
@@ -83,7 +93,12 @@ const declineStoreUser = async (req: Request, res: Response) => {
 
     await deleteStoreUser(req, res)
 
-    handleResponse(res, 200, "User has declined and deleted", user)
+    handleResponse(
+      res,
+      200,
+      "User has declined and deleted",
+      authUtils.sanitizeUser(user)
+    )
 
     // Log decline store user for auditing
     await logAdminAction({
@@ -115,7 +130,12 @@ const updateStoreUserStatus = async (req: Request, res: Response) => {
     user.status = status
     await user.save()
 
-    handleResponse(res, 200, "User status has been updated", user)
+    handleResponse(
+      res,
+      200,
+      "User status has been updated",
+      authUtils.sanitizeUser(user)
+    )
 
     // Log update store user status for auditing
     await logAdminAction({
@@ -147,7 +167,12 @@ const createAdmin = async (req: Request, res: Response) => {
     const newAdmin = new User({ username, email, password, role: "admin" })
     await newAdmin.save()
 
-    handleResponse(res, 201, "Admin account has been created", newAdmin)
+    handleResponse(
+      res,
+      201,
+      "Admin account has been created",
+      authUtils.sanitizeUser(newAdmin)
+    )
 
     // Log create admin for auditing
     await logAdminAction({
