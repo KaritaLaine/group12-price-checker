@@ -64,21 +64,21 @@ describe("AuthorizationMiddleware helpers", () => {
     expect(adminContext.res.status).toHaveBeenCalledWith(403)
   })
 
-  it("adminAndStoreUser allows both admin and store users", () => {
-    const adminContext = buildReqRes({ role: "admin" })
-    AuthorizationMiddleware.adminAndStoreUser(
-      adminContext.req as any,
-      adminContext.res,
-      adminContext.next
-    )
-    expect(adminContext.next).toHaveBeenCalled()
-
+  it("authorize only allows store users when configured for storeUser role", () => {
     const storeContext = buildReqRes({ role: "storeUser" })
-    AuthorizationMiddleware.adminAndStoreUser(
+    AuthorizationMiddleware.authorize("storeUser")(
       storeContext.req as any,
       storeContext.res,
       storeContext.next
     )
     expect(storeContext.next).toHaveBeenCalled()
+
+    const adminContext = buildReqRes({ role: "admin" })
+    AuthorizationMiddleware.authorize("storeUser")(
+      adminContext.req as any,
+      adminContext.res,
+      adminContext.next
+    )
+    expect(adminContext.res.status).toHaveBeenCalledWith(403)
   })
 })
