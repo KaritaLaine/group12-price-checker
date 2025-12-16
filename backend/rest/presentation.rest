@@ -1,0 +1,122 @@
+### Get product by barcode 
+GET http://localhost:3000/v1/products/compare/1234567890123?storeId=693eb91e5a02e0bcf2bb2253&maxDistance=5000
+Content-Type: application/json
+
+
+### Register a new user
+POST http://localhost:3000/v1/auth/register
+Content-Type: application/json
+
+{
+"username": "MikkoMallikas",
+"email": "mikkomallikas@example.com",
+"password": "Mikko123!",
+"storeName": "Mikon ruokaputiikki",
+"latitude": 45.192059,
+"longitude": 30.945831
+}
+
+
+### Login as admin
+# @name adminLogin
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+
+### Use admin login access token
+@token = {{adminLogin.response.body.data.accessToken}}
+
+
+### Get all users 
+GET http://localhost:3000/v1/admin/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+### Approve a pending store user
+PATCH http://localhost:3000/v1/admin/approve/6941a391b58c4f0d2ceaf90e
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+### Delete a store user
+DELETE http://localhost:3000/v1/admin/delete/69401494ba89f59b6e307f26
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+### Create a new admin
+POST http://localhost:3000/v1/admin/create-admin
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "hienoAdmin",
+  "email": "abuserAdmin@gmail.com",
+  "password": "Admin123!"
+}
+
+
+### Login as a store user (run this first to get token)
+# @name storeLogin
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "KalleKauppias19",
+  "password": "Koira123!"
+}
+
+
+### Get store user token
+@token = {{storeLogin.response.body.data.accessToken}}
+
+
+### Edit store information
+PUT http://localhost:3000/v1/store
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "K-citymarket Kupittaa",
+  "latitude": 30.192059,
+  "longitude": 28.945831
+}
+
+
+### Add multiple products at once
+POST http://localhost:3000/v1/store/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+[
+  {
+    "name": "Alyonka",
+    "barcodeType": "EAN",
+    "gtin": "9346243210486",
+    "price": 2.49,
+    "location": {}
+  },
+  {
+    "name": "Tushonka",
+    "barcodeType": "UPC",
+    "gtin": "14324988427891",
+    "price": 5.99,
+    "location": {}
+  }
+]
+
+
+### Apply a discount to a store product
+PUT http://localhost:3000/v1/store/products/693ed0416e03525f414c1af7/discount
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "discountedPrice": 1.99
+}
