@@ -1,5 +1,5 @@
 ### Get product by barcode
-GET http://localhost:3000/v1/products/compare/1234567890123?storeId=693eb91e5a02e0bcf2bb2253&maxDistance=20000
+GET http://localhost:3000/v1/products/compare/1234567890123?storeId=693eb91e5a02e0bcf2bb2253
 Content-Type: application/json
 
 
