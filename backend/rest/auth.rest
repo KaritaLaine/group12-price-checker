@@ -5,12 +5,12 @@ POST http://localhost:3000/v1/auth/register
 Content-Type: application/json
 
 {
-"username": "KalleKauppias19",
-"email": "KalleKauppias19@example.com",
+"username": "testi123",
+"email": "testi123@example.com",
 "password": "Koira123!",
-"storeName": "Kallen Kauppa2",
-"latitude": 60.192059,
-"longitude": 24.945831
+"storeName": "testikauppa",
+"latitude": 28.945831,
+"longitude": 30.192059
 }
 
 ### Register - Missing required fields (should fail)

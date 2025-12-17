@@ -1,0 +1,73 @@
+### Get product by barcode
+GET http://localhost:3000/v1/products/compare/1234567890123?storeId=693eb91e5a02e0bcf2bb2253&maxDistance=20000
+Content-Type: application/json
+
+
+### Login as admin
+# @name adminLogin
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### Use admin login access token
+@token = {{adminLogin.response.body.data.accessToken}}
+
+
+### Get all users 
+GET http://localhost:3000/v1/admin/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Lock store user 
+PATCH http://localhost:3000/v1/admin/user-status/693db0e0fe37fc87e3212ce6
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "locked"
+}
+
+### Unlock store user 
+PATCH http://localhost:3000/v1/admin/user-status/693db0e0fe37fc87e3212ce6
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "unlocked"
+}
+
+### Login as a store user (run this first to get token)
+# @name storeLogin
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "testi123",
+  "password": "Koira123!"
+}
+
+### Get store user token
+@storeToken = {{storeLogin.response.body.data.accessToken}}
+
+
+### Add a product
+POST http://localhost:3000/v1/store/products
+Authorization: Bearer {{storeToken}}
+Content-Type: application/json
+
+[
+  {
+    "name": "Milk chocolate",
+    "barcodeType": "EAN",
+    "gtin": "1234567890345",
+    "price": 2.49,
+    "location": {
+      "latitudes": 60.169,
+      "longitudes": 24.935
+    }
+  }
+]

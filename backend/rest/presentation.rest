@@ -39,7 +39,7 @@ Content-Type: application/json
 
 
 ### Approve a pending store user
-PATCH http://localhost:3000/v1/admin/approve/6941a391b58c4f0d2ceaf90e
+PATCH http://localhost:3000/v1/admin/approve/6942537b7469ada4628e1bc1
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -74,7 +74,7 @@ Content-Type: application/json
 
 
 ### Get store user token
-@token = {{storeLogin.response.body.data.accessToken}}
+# token = {{storeLogin.response.body.data.accessToken}}
 
 
 ### Edit store information
@@ -100,14 +100,20 @@ Content-Type: application/json
     "barcodeType": "EAN",
     "gtin": "9346243210486",
     "price": 2.49,
-    "location": {}
+    "location": {
+      "latitudes": 60.169,
+      "longitudes": 24.935
+    }
   },
   {
     "name": "Tushonka",
     "barcodeType": "UPC",
     "gtin": "14324988427891",
     "price": 5.99,
-    "location": {}
+    "location": {
+      "latitudes": 60.169,
+      "longitudes": 24.935
+    }
   }
 ]
 
